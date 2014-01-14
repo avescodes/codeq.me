@@ -27,55 +27,43 @@
     [(file-commits ?f ?c) (object-nodes ?f ?n) [?c :commit/tree ?n]]
     [(codeq-commits ?cq ?c) [?cq :codeq/file ?f] (file-commits ?f ?c)]])
 
-(defn- flatten-commit-src-pairs
+(defn- flatten-src-commit-pairs
   "Flatten each value commit-src pair down to a sequence of commits.
 
   Example:
   {:a [[:a 1] [:a 2]]} -> {:a [1 2]}"
   [m]
-  (into {}
-        (map (fn [[src pairs]] [src (map second pairs)])
-             m)))
+  (map (fn [[src pairs]] [src (map second pairs)])
+       m))
 
-(defn- sha->commit
-  "Transform a commit SHA (or sequence of SHAs) into a map of SHA to commit
-  entities."
-  [db & shas]
-  (->> (d/q '[:find ?sha ?commit
-              :in $ [?sha ...]
-              :where [?commit :git/sha ?sha]]
-            db
-            shas)
-       (map (fn [[sha commit]] [sha (d/entity db commit)]))
-       (into {})))
-
-(defn- hydrate-shas
+(defn- entitize
   [db m]
-  (into {}
-        (map (fn [[src shas]] [src (map (apply sha->commit db shas) shas)])
-             m)))
+  (map (fn [[src commits]] [src (map (partial d/entity db) commits)])
+       m))
 
-(defn- pick-earliest-commit
+(defn- select-earliest-sha
   [m]
-  (into {}
-        (map (fn [[src shas]] [src (first (sort-by :commit/authoredAt shas))])
-             m)))
+  (map (fn [[src commits]]
+         [src (first (sort-by :commit/authoredAt commits))])
+       m))
 
 (defn versions [db def]
-  (->> (d/q '[:find ?src ?sha
+  (->> (d/q '[:find ?src ?c
               :in $ % ?name
               :where
               [?n :code/name ?name]
               [?cq :clj/def ?n]
               [?cq :codeq/code ?cs]
               [?cs :code/text ?src]
-              (codeq-commits ?codeq ?c)
-              (?c :git/sha ?sha)]
+              (codeq-commits ?cq ?c)]
             db rules def)
        (group-by first)
-       flatten-commit-src-pairs
-       (hydrate-shas db)
-       pick-earliest-commit)) ;; Presently seems to always be the first commit.
+       flatten-src-commit-pairs
+       (entitize db)
+       select-earliest-sha
+       (into {})))
+
+
 
 
 
