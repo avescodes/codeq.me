@@ -1,0 +1,56 @@
+Story,Labels,Estimate
+Basic Pedestal service,phase1,1
+Integrate ClojureScript,phase1,1
+Datomic Setup,phase1,2
+Tree basic markup,"phase1,widget",4
+Tree widget query,"phase1,widget",4
+Tree-ify function,"phase1,widget",2
+Tree widget service endpoints,"phase1,widget",2
+Symbol history widget markup,"phase1,widget",4
+Symbol widget interactions,"phase1,widget",4
+Symbol widget query,"phase1,widget",4
+Symbol widget source cross-references,"phase1,widget",2
+Symbol widget service endpoints,"phase1,widget",2
+Implement software metrics tracking,phase1,4
+Basic site templates,phase2,2
+Basic site styling,phase2,2
+Projects index page,phase2,2
+Projects index endpoint,phase2,2
+Determine deployment target,phase2,2
+Setup deployment automation,phase2,4
+Staged deployment,phase2,2
+Auth status/initiation,"auth,phase3",4
+User page,"auth,phase3",2
+Authorization,"auth,phase3",2
+Auth flow endpoints,"auth,phase3",2
+Credentials persistence,"auth,phase3",2
+Gather list of repos,"phase3,my-repos",4
+Filter list by language,"phase3,my-repos",1
+Cache list of repos,"phase3,my-repos",2
+Periodically re-fetch repos,"phase3,my-repos",2
+Delayed job system,"phase3",4
+UI for refreshing repos,"phase3,my-repos",1
+Repos markup,"phase3,my-repos",2
+Delete repo,"phase3,my-repos",2
+Delete user,"phase3,auth",2
+"Markup for requesting analysis",phase4,2
+Requesting analysis queues job,phase4,1
+Clone repository,"analysis,phase4",4
+Spawn codeq process,"analysis,phase4",4
+Monitor/kill processes,"analysis,phase4",2
+Perform clean up,"analysis,phase4",1
+Report process status,"analysis,phase4",8
+Analysis status markup,"phase4",8
+Analysis status communication,"phase4",4
+GitHub post-commit hook,phase4,2
+Prioritize new analyses,phase4,1
+Central location for system metrics,phase5,4
+Monitor service's physical systems,phase5,8
+Review and polish UI design,phase5,4
+Monitoring alerts,phase5,4
+Load testing,phase5,8
+Auto-scaling,phase5,8
+Blog post,"phase5,media",2
+Email for domain,"phase5,media",1
+Twitter account,"phase5,media",1
+Announcements,"phase5,media",1
