@@ -1,5 +1,5 @@
-(ns user)
-(require '[datomic.api :as d :refer [q db]])
+(ns me.codeq.website.scratch
+  (:require [datomic.api :as d :refer [q db]]))
 
 (def uri "datomic:dev://localhost:4334/git")
 (def conn nil)
